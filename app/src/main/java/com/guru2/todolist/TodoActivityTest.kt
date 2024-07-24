@@ -8,17 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class TodoActivityTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_todo_test)
 
-        val buttonTodo : Button = findViewById(R.id.button_todo)
+        val buttonMain : Button = findViewById(R.id.button_main)
 
-        buttonTodo.setOnClickListener {
-            val intent = Intent(this, TodoActivityTest::class.java)
+        buttonMain.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
     }
 }

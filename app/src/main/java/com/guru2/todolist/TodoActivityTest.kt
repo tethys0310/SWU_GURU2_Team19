@@ -1,12 +1,17 @@
 package com.guru2.todolist
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 
 
 class TodoActivityTest : AppCompatActivity() {
@@ -16,9 +21,10 @@ class TodoActivityTest : AppCompatActivity() {
     //캘린더에 투두가 어떤 방식으로 들어가게 될지를 모르겠어서... 추후 프레그먼트로 구현해야하나? 고민중
     //앱화면이 3개 이상이긴 해야하니까 따로 분리하긴 해야할텐데 그러면 사실 액티비티가 맞긴 함
 
-    //아이템 클릭 리스너에 bottom sheet modal로 수정창 띄울 예정
+    //아이템 클릭 리스너에 bottom sheet modal로 수정창 띄울 예정 > 현재는 알럿 다이얼로그로 구현중
 
     //예시로 사용할 데이터들 ...
+    //데이터베이스에서 가져올 때 이런 형태로 가져와야? 할 듯...
     val exCategoryList = arrayListOf<Category> (
         Category("GURU1", arrayListOf(
             Todo("마일스톤 플래너 작성", false),
@@ -34,15 +40,14 @@ class TodoActivityTest : AppCompatActivity() {
     fun makeArrayTodoExtract (arrayCategory: ArrayList<Category>) : ArrayList<TodoExtract> {
 
         //TodoListAdapter에 넣기 위한 어레이리스트 만드는 용도
-        //1. 어레이리스트 카테고리를 가져온다
 
         //리턴용
         val result : ArrayList<TodoExtract> = arrayListOf()
 
-        for (i in 0 until arrayCategory.size) { //2. 카테고리 저장
+        for (i in 0 until arrayCategory.size) { //카테고리 저장
             result.add(TodoExtract(true, arrayCategory[i].title, false))
             if (arrayCategory[i].todoArray.isNotEmpty()) {
-                for (j in 0 until arrayCategory[i].todoArray.size) //3. 카테고리 안 투두 저장
+                for (j in 0 until arrayCategory[i].todoArray.size) //카테고리 안 투두 저장
                     result.add(TodoExtract(false, arrayCategory[i].todoArray[j].title, arrayCategory[i].todoArray[j].check))
             }
         }
@@ -50,6 +55,33 @@ class TodoActivityTest : AppCompatActivity() {
         return result
     }
 
+    fun breakArrayTodoExtract (arrayTodoExtract: ArrayList<TodoExtract>) : ArrayList<Category> {
+        //데이터베이스에 넣기 전 어레이리스트 만드는 용도
+
+        val result : ArrayList<Category> = arrayListOf() //리턴용
+        var counter = -1 //카테고리 수 카운터
+
+        for (i in 0 until arrayTodoExtract.size) {
+            if (arrayTodoExtract[i].isCategory == true) {
+                //카테고리 저장
+                counter += 1 //다음 카테고리 저장 카운터로 넘겨주기
+                result.add(Category(arrayTodoExtract[i].title, arrayListOf()))
+            }
+            else {
+                result[counter].addTodo(Todo(arrayTodoExtract[i].title, arrayTodoExtract[i].check))
+            }
+        }
+        return result
+    }
+
+    fun modifyTodoExtract (arrayTodoExtract: ArrayList<TodoExtract>) : ArrayList<TodoExtract> {
+        //수정용. 체크박스랑 이름 변경될 때마다 호출해야 하니까 최대한 가볍게 하고 싶은데... 되나?
+        //매개변수로 인덱스까지 가져올까? 그 편이 낫겠다... 일단 좀 더 살펴보고 하기로.
+
+        val result : ArrayList<TodoExtract> = arrayListOf()
+
+        return result
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +98,49 @@ class TodoActivityTest : AppCompatActivity() {
         val adapter = TodoListAdapter(this, result)
         listViewTodo.adapter = adapter
 
-        //작동을 안하는 ... 아이템클릭리스너...
-        listViewTodo.setOnItemClickListener(OnItemClickListener { parent, v, position, id ->
-            Toast.makeText(this, "클릭!", Toast.LENGTH_LONG).show()
-        })
+        //작동을 안하는 ... 이제는 하는 ... 아이템클릭리스너...
+        listViewTodo.setOnItemClickListener { parent, view, position, id ->
+            val item = result[position]
+            val et = EditText(this) //et.text
+            et.setHint("수정내용을 여기에 입력")
+
+            //다이얼로그로 구현하고 상황봐서 바텀싯으로 구현
+            val builder = AlertDialog.Builder(this)
+                .setTitle("임시 수정창 : " + item.title)
+                .setMessage("수정할 내용 입력 후 확인\n수정사항 없으면 취소")
+                .setView(et)
+                .setPositiveButton("확인",
+                    DialogInterface.OnClickListener{ dialog, which ->
+                        //사이에 수정 해주는 함수 하나 들어가야 할 듯?
+                        //몇 번 눌렸는지 인덱스 찾아주고, 인덱스 매개변수로 보내서 함수로 처리
+                        //이후로 수정내용 다시 디스플레이... 가 되려나?
+                        Toast.makeText(this, "수정완료 : " + et.text, Toast.LENGTH_SHORT).show()
+                    })
+                .setNegativeButton("취소",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show()
+                    })
+                .setNeutralButton("삭제",
+                    DialogInterface.OnClickListener{ dialog, which -> //되묻기
+                        val really = AlertDialog.Builder(this)
+                        .setTitle("정말로 " + item.title + "을(를) 삭제하나요?")
+                        .setPositiveButton("예",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                //삭제하는 함수 넣을 예정
+                                Toast.makeText(this, "삭제함", Toast.LENGTH_SHORT).show()
+                            })
+                        .setNegativeButton("아니오", 
+                            DialogInterface.OnClickListener { dialog, which ->
+                                    Toast.makeText(this, "삭제하지 않음", Toast.LENGTH_SHORT).show()
+                            })
+                    really.show()
+                })
+            builder.show()
+        }
+
+        //과목 +버튼 누르면 투두 추가할 수 있는 기능. 이것도 일단은 다이얼로그로 구현하자
+
+        //투두 삭제 기능
 
         //메인화면 가는 버튼
         buttonMain.setOnClickListener {

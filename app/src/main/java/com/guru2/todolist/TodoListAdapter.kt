@@ -10,12 +10,6 @@ import android.widget.TextView
 
 class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): BaseAdapter()
 {
-    /*
-    var counter = 0 //과목수
-    var isCheckingTodo = false //투두 체크 중인지 확인 할 수 있게.
-    var counterTodo = 0 //투두 개수 비교용
-    */
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val item= list[position]
@@ -31,8 +25,6 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
             title_category.text = item.title
             if (item.check) checkbox.setChecked(true)
 
-            //if (counterTodo++ == item.todoArray.size) isCheckingTodo = false //체크 끝났으면 다음에 못 들어오게 막아주기
-
             return view2
         }
 
@@ -40,10 +32,6 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         val view1: View = LayoutInflater.from(context).inflate(R.layout.todo_category, null)
         val title_category = view1.findViewById<TextView>(R.id.textView_title)
         title_category.text = item.title
-
-
-       /* if (item.todoArray.isNotEmpty()) isCheckingTodo = true //투두 비어있지 않다면 들어갈 수 있게 열어주기
-        counter += 1 //과목 1개 추가~*/
 
         return view1
     }

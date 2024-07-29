@@ -7,7 +7,4 @@ import android.widget.TextView
 
 class TodoExtract (val isCategory: Boolean, val title: String, val check:Boolean)  {
 
-
-
-
 }

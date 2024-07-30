@@ -148,4 +148,9 @@ class TodoActivityTest : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    //버튼 뷰랑 소통용
+    fun toastTest(position: Int) {
+        Toast.makeText(this, "투두 추가! 여기는 ", Toast.LENGTH_SHORT)
+    }
 }

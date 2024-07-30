@@ -14,15 +14,14 @@ import androidx.core.content.ContentProviderCompat.requireContext
 
 class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): BaseAdapter()
 {
-    private val view1: View = LayoutInflater.from(context).inflate(R.layout.todo_category, null) //과목
-    private val view2: View = LayoutInflater.from(context).inflate(R.layout.todo_item, null) //투두
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val item= list[position]
 
         //투두리스트 출력하는 view2
         if (!item.isCategory) {
+
+            val view2: View = LayoutInflater.from(context).inflate(R.layout.todo_item, null) //투두
 
             val title_category = view2.findViewById<TextView>(R.id.textView_title)
             val checkbox = view2.findViewById<CheckBox>(R.id.checkBox_check)
@@ -34,6 +33,9 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         }
 
         //카테고리 출력하는 view1
+
+        val view1: View = LayoutInflater.from(context).inflate(R.layout.todo_category, null) //과목
+
         val title_category = view1.findViewById<TextView>(R.id.textView_title)
         title_category.text = item.title
 

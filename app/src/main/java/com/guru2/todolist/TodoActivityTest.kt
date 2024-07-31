@@ -23,7 +23,7 @@ class TodoActivityTest : AppCompatActivity() {
 
     //예시로 사용할 데이터들 ...
     //데이터베이스에서 가져올 때 이런 형태로 가져와야? 할 듯...
-    val exCategoryList = arrayListOf<Category> (
+    var exCategoryList = arrayListOf<Category> (
         Category("GURU1", arrayListOf(
             Todo("마일스톤 플래너 작성", false),
             Todo("과제1 제출", false))
@@ -86,7 +86,7 @@ class TodoActivityTest : AppCompatActivity() {
         setContentView(R.layout.activity_todo_test)
 
         //아이템 선언
-        val listViewTodo : ListView = findViewById(R.id.listView_todo)
+        var listViewTodo : ListView = findViewById(R.id.listView_todo)
         val buttonMain : Button = findViewById(R.id.button_main)
 
         //카테고리 어레이리스트를 투두익스트렉 어레이리스트로 변환
@@ -140,7 +140,11 @@ class TodoActivityTest : AppCompatActivity() {
 
         //메인화면 가는 버튼
         buttonMain.setOnClickListener {
+            //리스트뷰 분해
+            exCategoryList = breakArrayTodoExtract(result)
+
             //메인화면 넘어가기 전에 리스트 저장 잊지 말 것. DB 연동 들어가야 함.
+            Log.i("log message", exCategoryList[1].todoArray[0].title) //구루2에 추가한 1번째 투두 확인용. 잘 작동함!
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

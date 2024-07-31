@@ -42,7 +42,6 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         }
 
         //카테고리 출력하는 view1
-
         val view1: View = LayoutInflater.from(context).inflate(R.layout.todo_category, null) //과목
 
         val titleCategory = view1.findViewById<TextView>(R.id.textView_title)

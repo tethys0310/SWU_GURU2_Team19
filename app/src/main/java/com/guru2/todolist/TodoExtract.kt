@@ -6,5 +6,5 @@ import android.widget.CheckBox
 import android.widget.TextView
 
 class TodoExtract (val isCategory: Boolean, val title: String, val check:Boolean)  {
-
+ //투두와 카테고리를 동시에 ListView에 집어 넣는 것에 대한 대안
 }

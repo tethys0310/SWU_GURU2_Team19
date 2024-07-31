@@ -29,6 +29,11 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
 
             val titleCategory = view2.findViewById<TextView>(R.id.textView_title)
             val checkbox = view2.findViewById<CheckBox>(R.id.checkBox_check)
+            checkbox.setOnClickListener {
+                Log.i("log message", position.toString()) //인덱스 확인용
+                //체크박스 변동마다 함수 호출
+                modifyCheckbox(position)
+            }
 
             titleCategory.text = item.title
             if (item.check) checkbox.setChecked(true)
@@ -46,17 +51,14 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         val buttonPlus = view1.findViewById<Button>(R.id.button_plus)
         buttonPlus.setOnClickListener {
             Log.i("log message", position.toString()) //인덱스 확인용
-            //메시지 띄워서 투두 제목 입력 ... 할건데. 액티비티 테스트 쪽에서 하는게 나으려나.
-            msg(position)
-
-            //포지션 +1에 리스트 추가
-            //갱신
+            //메시지 띄워서 투두 제목 입력.
+            addTodo(position) //할 일 추가 해주는 함수
         }
 
         return view1
     }
 
-    override fun getItem(position: Int): Any {
+    override fun getItem(position: Int): TodoExtract {
         return list[position]
     }
     override fun getCount(): Int {
@@ -64,30 +66,41 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
     }
     override fun getItemId(position: Int): Long = position.toLong()
 
-    fun msg (position:Int) {
-        Log.i("log message2", position.toString()) //여기까지 잘 작동된다. 확인.
-
+    //과목 +버튼 누르면 투두 추가할 수 있는 기능.
+    fun addTodo (position:Int) {
         val et = EditText(context) //et.text
         et.setHint("추가내용을 여기에 입력")
-        //왜 출력이 안될까...
+        
+        //다이얼로그
         val builder = AlertDialog.Builder(context)
-            .setTitle(list[position].title+" : 투두 추가")
+            .setTitle(list[position].title+" 과목에 일정 추가")
             .setMessage("투두리스트에 추가할 내용을 입력하세요.")
             .setView(et)
             .setPositiveButton("확인",
                 DialogInterface.OnClickListener{ dialog, which ->
-                    //사이에 수정 해주는 함수 하나 들어가야 할 듯?
-                    //몇 번 눌렸는지 인덱스 찾아주고, 인덱스 매개변수로 보내서 함수로 처리
-                    //이후로 수정내용 다시 디스플레이... 가 되려나?
-                    Toast.makeText(context, "수정완료 : " + et.text, Toast.LENGTH_SHORT).show()
+                    //포지션 +1에 리스트 추가
+                    list.add(position+1, TodoExtract(false, et.text.toString(), false))
+                    notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
+                    Toast.makeText(context, "추가 완료 : " + et.text, Toast.LENGTH_SHORT).show()
                 })
             .setNegativeButton("취소",
                 DialogInterface.OnClickListener { dialog, which ->
-                    Toast.makeText(context, "취소", Toast.LENGTH_SHORT).show()
+                    Log.i("log message2", "추가 취소")
                 })
         builder.show()
+    }
 
+    fun modifyCheckbox (position: Int) {
 
+        var item : TodoExtract = getItem(position)
+        list.removeAt(position)
+
+        if (item.check){
+            list.add(position, TodoExtract(false, item.title, false))
+            Log.i("log message2", item.title+"이 체크박스 해제")
+        }
+        else
+            list.add(position, TodoExtract(false, item.title, true))
     }
 
 

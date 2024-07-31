@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.EditText
@@ -18,8 +19,7 @@ class TodoActivityTest : AppCompatActivity() {
 
     //리스트뷰로 구현. 카테고리 클래스랑 투두 클래스 둘 다 먹어주는 클래스가 필요할 것 같음. 그걸로 리스트 만들어야겠지...
 
-    //캘린더에 투두가 어떤 방식으로 들어가게 될지를 모르겠어서... 추후 프레그먼트로 구현해야하나? 고민중
-    //앱화면이 3개 이상이긴 해야하니까 따로 분리하긴 해야할텐데 그러면 사실 액티비티가 맞긴 함
+    //캘린더에 투두가 어떤 방식으로 들어가게 될지를 모르겠어서... 액티비티로 구현.
 
     //아이템 클릭 리스너에 bottom sheet modal로 수정창 띄울 예정 > 현재는 알럿 다이얼로그로 구현중
 
@@ -83,7 +83,12 @@ class TodoActivityTest : AppCompatActivity() {
         return result
     }
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_test)
 
@@ -106,7 +111,7 @@ class TodoActivityTest : AppCompatActivity() {
 
             //다이얼로그로 구현하고 상황봐서 바텀싯으로 구현
             val builder = AlertDialog.Builder(this)
-                .setTitle("임시 수정창 : " + item.title)
+                .setTitle("수정하기 : " + item.title)
                 .setMessage("수정할 내용 입력 후 확인\n수정사항 없으면 취소")
                 .setView(et)
                 .setPositiveButton("확인",
@@ -114,11 +119,11 @@ class TodoActivityTest : AppCompatActivity() {
                         //사이에 수정 해주는 함수 하나 들어가야 할 듯?
                         //몇 번 눌렸는지 인덱스 찾아주고, 인덱스 매개변수로 보내서 함수로 처리
                         //이후로 수정내용 다시 디스플레이... 가 되려나?
-                        Toast.makeText(this, "수정완료 : " + et.text, Toast.LENGTH_SHORT).show()
+                        Log.i("log message", et.text.toString()+" 수정 완료")
                     })
                 .setNegativeButton("취소",
                     DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show()
+                        Log.i("log message", item.title+" 수정 취소")
                     })
                 .setNeutralButton("삭제",
                     DialogInterface.OnClickListener{ dialog, which -> //되묻기
@@ -127,11 +132,15 @@ class TodoActivityTest : AppCompatActivity() {
                         .setPositiveButton("예",
                             DialogInterface.OnClickListener { dialog, which ->
                                 //삭제하는 함수 넣을 예정
-                                Toast.makeText(this, "삭제함", Toast.LENGTH_SHORT).show()
+                                result.removeAt(position)
+                                adapter.notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
+                                Toast.makeText(this, item.title+" 일정을 정상적으로 삭제했습니다.", Toast.LENGTH_SHORT).show()
+                                Log.i("log message", item.title+" 삭제 완료")
                             })
-                        .setNegativeButton("아니오", 
+                        .setNegativeButton("아니오",
                             DialogInterface.OnClickListener { dialog, which ->
-                                    Toast.makeText(this, "삭제하지 않음", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, item.title+" 일정을 삭제하지 않았습니다.", Toast.LENGTH_SHORT).show()
+                                Log.i("log message", item.title+" 삭제 취소")
                             })
                     really.show()
                 })
@@ -144,13 +153,10 @@ class TodoActivityTest : AppCompatActivity() {
 
         //메인화면 가는 버튼
         buttonMain.setOnClickListener {
+            //저장하자~
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
 
-    //버튼 뷰랑 소통용
-    fun toastTest(position: Int) {
-        Toast.makeText(this, "투두 추가! 여기는 ", Toast.LENGTH_SHORT)
-    }
 }

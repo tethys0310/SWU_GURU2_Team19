@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:visibility="visible">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,17 +22,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="#A43135">
+                android:background="#A43135"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/textViewTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:text="나의 일정"
-                    android:textSize="12sp"
                     android:textColor="#FFFFFF"
-                    android:layout_alignParentEnd="true"/>
+                    android:textSize="12sp" />
             </RelativeLayout>
 
             <!-- Weekly Schedule -->
@@ -42,310 +45,339 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="주간 시간표"
-                    android:textSize="18sp"
                     android:textColor="#000000"
-                    android:layout_gravity="center"/>
+                    android:textSize="18sp" />
 
 
-                                <TableLayout
-                                    android:id="@+id/timetable_table"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:stretchColumns="1">
+                <TableLayout
+                    android:id="@+id/timetable_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
 
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="시간"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                    <TableRow>
 
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="월요일"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="시간" />
 
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="화요일"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="월요일" />
 
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="수요일"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="화요일" />
 
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="목요일"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="수요일" />
 
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:text="금요일"
-                                            android:padding="8dp"
-                                            android:gravity="center"
-                                            android:background="#DDDDDD"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="목요일" />
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="금요일" />
+                    </TableRow>
 
-                                    </TableRow>
+                    <!-- 08:00 -->
+                    <TableRow>
 
-                                    <!-- 08:00 -->
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="08:00"
-                                            android:padding="8dp"
-                                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="08:00" />
 
-                                        <EditText
-                                            android:id="@+id/monday_0800"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/monday_0800"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="monday_0800" />
 
-                                        <EditText
-                                            android:id="@+id/tuesday_0800"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/tuesday_0800"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="tuesday_0800" />
 
-                                        <EditText
-                                            android:id="@+id/wednesday_0800"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/wednesday_0800"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="wednesday_0800" />
 
-                                        <EditText
-                                            android:id="@+id/Thursday_0800"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/thursday_0800"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="thursday_0800" />
 
-                                        <EditText
-                                            android:id="@+id/Friday_0800"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
-                                    </TableRow>
+                        <EditText
+                            android:id="@+id/friday_0800"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="friday_0800" />
+                    </TableRow>
 
-                                    <!-- 09:00 -->
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="09:00"
-                                            android:padding="8dp"
-                                            android:gravity="center"/>
+                    <!-- 09:00 -->
+                    <TableRow>
 
-                                        <EditText
-                                            android:id="@+id/monday_0900"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="09:00" />
 
-                                        <EditText
-                                            android:id="@+id/tuesday_0900"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/monday_0900"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="monday_0900" />
 
-                                        <EditText
-                                            android:id="@+id/wednesday_0900"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/tuesday_0900"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="tuesday_0900" />
 
-                                        <EditText
-                                            android:id="@+id/Thursday_0900"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/wednesday_0900"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="wednesday_0900" />
 
-                                        <EditText
-                                            android:id="@+id/Friday_0900"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
-                                    </TableRow>
+                        <EditText
+                            android:id="@+id/thursday_0900"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="thursday_0900" />
 
-                                    <!-- 10:00 -->
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="10:00"
-                                            android:padding="8dp"
-                                            android:gravity="center"/>
+                        <EditText
+                            android:id="@+id/friday_0900"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="friday_0900" />
+                    </TableRow>
 
-                                        <EditText
-                                            android:id="@+id/monday_1000"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                    <!-- 10:00 -->
+                    <TableRow>
 
-                                        <EditText
-                                            android:id="@+id/tuesday_1000"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="10:00" />
 
-                                        <EditText
-                                            android:id="@+id/wednesday_1000"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/monday_1000"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="monday_1000" />
 
-                                        <EditText
-                                            android:id="@+id/Thursday_1000"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/tuesday_1000"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="tuesday_1000" />
 
-                                        <EditText
-                                            android:id="@+id/Friday_1000"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
-                                    </TableRow>
+                        <EditText
+                            android:id="@+id/wednesday_1000"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="wednesday_1000" />
 
-                                    <!-- 11:00 -->
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="11:00"
-                                            android:padding="8dp"
-                                            android:gravity="center"/>
+                        <EditText
+                            android:id="@+id/thursday_1000"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="thursday_1000" />
 
-                                        <EditText
-                                            android:id="@+id/monday_1100"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/friday_1000"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="friday_1000" />
+                    </TableRow>
 
-                                        <EditText
-                                            android:id="@+id/tuesday_1100"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                    <!-- 11:00 -->
+                    <TableRow>
 
-                                        <EditText
-                                            android:id="@+id/wednesday_1100"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="11:00" />
 
-                                        <EditText
-                                            android:id="@+id/Thursday_1100"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/monday_1100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="monday_1100" />
 
-                                        <EditText
-                                            android:id="@+id/Friday_1100"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
-                                    </TableRow>
+                        <EditText
+                            android:id="@+id/tuesday_1100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="tuesday_1100" />
 
-                                    <!-- 12:00 -->
-                                    <TableRow>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="12:00"
-                                            android:padding="8dp"
-                                            android:gravity="center"/>
+                        <EditText
+                            android:id="@+id/wednesday_1100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="wednesday_1100" />
 
-                                        <EditText
-                                            android:id="@+id/monday_1200"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/thursday_1100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="thursday_1100" />
 
-                                        <EditText
-                                            android:id="@+id/tuesday_1200"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <EditText
+                            android:id="@+id/friday_1100"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="friday_1100" />
+                    </TableRow>
 
-                                        <EditText
-                                            android:id="@+id/wednesday_1200"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                    <!-- 12:00 -->
+                    <TableRow>
 
-                                        <EditText
-                                            android:id="@+id/Thursday_1200"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="12:00" />
 
-                                        <EditText
-                                            android:id="@+id/Friday_1200"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:padding="8dp"/>
-                                    </TableRow>
+                        <EditText
+                            android:id="@+id/monday_1200"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="monday_1200" />
 
-                                    <!-- 추가적인 시간대 행 추가 가능 -->
+                        <EditText
+                            android:id="@+id/tuesday_1200"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="tuesday_1200" />
 
-                                </TableLayout>
+                        <EditText
+                            android:id="@+id/wednesday_1200"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="wednesday_1200" />
+
+                        <EditText
+                            android:id="@+id/thursday_1200"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="thursday_1200" />
+
+                        <EditText
+                            android:id="@+id/friday_1200"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="8dp"
+                            android:tag="friday_1200" />
+                    </TableRow>
+
+                    <!-- 추가적인 시간대 행 추가 가능 -->
+
+                </TableLayout>
 
                 <Button
                     android:id="@+id/save_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="저장"
-                    android:backgroundTint="#A43135"/>
+                    android:backgroundTint="#A43135"
+                    android:text="저장" />
 
                 <TableLayout
                     android:id="@+id/tableSchedule"
@@ -363,6 +395,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="top"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -371,17 +404,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="셔틀버스 시간"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
 
-
-
-
-
-                <!-- Shuttle Bus Times Table -->
-                <!-- Add your shuttle bus times table layout here -->
+                <ImageView
+                    android:id="@+id/shuttle_bus_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="293dp"
+                    android:contentDescription="셔틀버스 시간표"
+                    android:foregroundGravity="top"
+                    android:src="@drawable/imgShuttle" />
 
             </LinearLayout>
-
 
             <!-- Task List -->
             <LinearLayout
@@ -393,10 +427,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="과제 목록"
-                    android:textSize="18sp"
                     android:textColor="#000000"
-                    android:layout_gravity="center"/>
+                    android:textSize="18sp" />
 
                 <!-- Task List Items -->
                 <!-- Add your task list items layout here -->
@@ -413,10 +447,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="시험 일정"
-                    android:textSize="18sp"
                     android:textColor="#000000"
-                    android:layout_gravity="center"/>
+                    android:textSize="18sp" />
 
                 <!-- Exam Schedule Items -->
                 <!-- Add your exam schedule items layout here -->
@@ -431,34 +465,34 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:background="#A43135">
+        android:background="#A43135"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="To Do"
+            android:backgroundTint="#A43135"
             android:onClick="onToDoClicked"
-            android:backgroundTint="#A43135"/>
+            android:text="To Do" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Home"
+            android:backgroundTint="#A43135"
             android:onClick="onHomeClicked"
-            android:backgroundTint="#A43135"/>
+            android:text="Home" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Calendar"
+            android:backgroundTint="#A43135"
             android:onClick="onCalendarClicked"
-            android:backgroundTint="#A43135"/>
+            android:text="Calendar" />
     </LinearLayout>
 
 </RelativeLayout>

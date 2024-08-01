@@ -7,11 +7,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.enableEdgeToEdge
 
 class MainActivity : AppCompatActivity() {
-    //lateinit var btnLogin: ImageButton
-    lateinit var btnLogin: Button
+    lateinit var btnLogin: ImageButton
     lateinit var editTextId: EditText
     lateinit var editTextPassword: EditText
     lateinit var btnRegister: Button
@@ -24,6 +22,20 @@ class MainActivity : AppCompatActivity() {
         DB = DBHelper(this)
 
         btnLogin = findViewById(R.id.btnLogin)
+
+        //임시 버튼
+        var btnTodo = findViewById<Button>(R.id.btnTodo)
+        btnTodo.setOnClickListener {
+            val intent = Intent(this@MainActivity, TodoActivityTest::class.java)
+            startActivity(intent)
+        }
+        var btnCalender = findViewById<Button>(R.id.btnCalender)
+        btnCalender.setOnClickListener {
+            val intent = Intent(this@MainActivity, CalenderActivity::class.java)
+            startActivity(intent)
+        }
+
+
         editTextId = findViewById(R.id.editTextId)
         editTextPassword = findViewById(R.id.editTextPassword)
         btnRegister = findViewById(R.id.btnRegister)

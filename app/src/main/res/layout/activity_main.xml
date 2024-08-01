@@ -49,7 +49,7 @@
             android:paddingLeft="8dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8DFFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+            app:layout_constraintBottom_toTopOf="@+id/btnTodo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,13 +65,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!--<ImageButton
+        <ImageButton
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
-            android:background="#00FF0000"/>-->
+            android:background="#00FF0000"/>
         <!--            app:srcCompat="@drawable/login" />-->
 
         <Button
@@ -95,13 +95,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnTodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="투두리스트"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.359"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="608dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="597dp" />
+
+    <Button
+        android:id="@+id/btnCalender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="캘린더"
+        app:layout_constraintStart_toEndOf="@+id/btnTodo"
+        tools:layout_editor_absoluteY="597dp"
         tools:ignore="MissingConstraints" />
 
 

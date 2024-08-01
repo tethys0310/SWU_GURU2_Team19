@@ -1,4 +1,3 @@
-
 package com.guru2.todolist
 
 import android.os.Bundle
@@ -9,6 +8,10 @@ import androidx.core.view.WindowInsetsCompat
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val buttonTodo : Button = findViewById(R.id.button_todo)
+        buttonTodo.setOnClickListener {
+          val intent = Intent(this, TodoActivityTest::class.java)
+          startActivity(intent)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
@@ -18,4 +21,4 @@ class HomeActivity : AppCompatActivity() {
 //            insets
 //        }
     }
-}
+   

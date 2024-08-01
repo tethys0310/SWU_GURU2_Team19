@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
 
 class MainActivity : AppCompatActivity() {
     lateinit var btnLogin: ImageButton
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        
         DB = DBHelper(this)
 
         btnLogin = findViewById(R.id.btnLogin)
@@ -54,5 +55,6 @@ class MainActivity : AppCompatActivity() {
             val loginIntent = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(loginIntent)
         }
+
     }
 }

@@ -78,7 +78,7 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
             .setPositiveButton("확인",
                 DialogInterface.OnClickListener{ dialog, which ->
                     //포지션 +1에 리스트 추가
-                    list.add(position+1, TodoExtract(false, et.text.toString(), false))
+                    list.add(position+1, TodoExtract(false, "", et.text.toString(), false))
                     notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
                     Toast.makeText(context, "추가 완료 : " + et.text, Toast.LENGTH_SHORT).show()
                 })
@@ -95,11 +95,11 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         list.removeAt(position)
 
         if (item.check){
-            list.add(position, TodoExtract(false, item.title, false))
+            list.add(position, TodoExtract(false, "", item.title, false))
             Log.i("log message2", item.title+"이 체크박스 해제")
         }
         else
-            list.add(position, TodoExtract(false, item.title, true))
+            list.add(position, TodoExtract(false, "", item.title, true))
     }
 
 

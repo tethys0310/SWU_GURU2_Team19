@@ -1,69 +1,470 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
-    <Button
-        android:id="@+id/button_todo"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="#A43135">
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="나의 일정"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+
+            <!-- Weekly Schedule -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="주간 시간표"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:clipToPadding="false"/>
+
+
+                <!--                <TableLayout-->
+                <!--                    android:id="@+id/timetable_table"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:stretchColumns="1">-->
+
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="시간"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:text="월요일"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:text="화요일"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:text="수요일"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:text="목요일"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+                <!--                        <TextView-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:text="금요일"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:background="#DDDDDD"/>-->
+
+
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 08:00 &ndash;&gt;-->
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="08:00"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/monday_0800"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/tuesday_0800"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/wednesday_0800"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Thursday_0800"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Friday_0800"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 09:00 &ndash;&gt;-->
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="09:00"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/monday_0900"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/tuesday_0900"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/wednesday_0900"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Thursday_0900"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Friday_0900"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 10:00 &ndash;&gt;-->
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="10:00"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/monday_1000"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/tuesday_1000"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/wednesday_1000"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Thursday_1000"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Friday_1000"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 11:00 &ndash;&gt;-->
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="11:00"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/monday_1100"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/tuesday_1100"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/wednesday_1100"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Thursday_1100"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Friday_1100"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 12:00 &ndash;&gt;-->
+                <!--                    <TableRow>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="wrap_content"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="12:00"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:gravity="center"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/monday_1200"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/tuesday_1200"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/wednesday_1200"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Thursday_1200"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+
+                <!--                        <EditText-->
+                <!--                            android:id="@+id/Friday_1200"-->
+                <!--                            android:layout_width="0dp"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:layout_weight="1"-->
+                <!--                            android:padding="8dp"/>-->
+                <!--                    </TableRow>-->
+
+                <!--                    &lt;!&ndash; 추가적인 시간대 행 추가 가능 &ndash;&gt;-->
+
+                <!--                </TableLayout>-->
+
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="저장"
+                    android:backgroundTint="#A43135"/>
+
+                <TableLayout
+                    android:id="@+id/tableSchedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+
+                    <!-- Table rows will be added dynamically in the activity -->
+
+                </TableLayout>
+
+            </LinearLayout>
+
+            <!-- Shuttle Bus Times -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="셔틀버스 시간"
+                    android:textColor="#000000"/>
+
+
+
+
+
+                <!-- Shuttle Bus Times Table -->
+                <!-- Add your shuttle bus times table layout here -->
+
+            </LinearLayout>
+
+
+            <!-- Task List -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="과제 목록"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"/>
+
+                <!-- Task List Items -->
+                <!-- Add your task list items layout here -->
+
+            </LinearLayout>
+
+            <!-- Exam Schedule -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시험 일정"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"/>
+
+                <!-- Exam Schedule Items -->
+                <!-- Add your exam schedule items layout here -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="투두리스트 임시"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="#A43135">
 
-    <Button
-        android:id="@+id/button_cal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="캘린더 임시"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="To Do"
+            android:onClick="onToDoClicked"
+            android:backgroundTint="#A43135"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="홈"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Home"
+            android:onClick="onHomeClicked"
+            android:backgroundTint="#A43135"/>
 
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="286dp"
-        tools:layout_editor_absoluteY="30dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Calendar"
+            android:onClick="onCalendarClicked"
+            android:backgroundTint="#A43135"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="의 일정"
-        tools:layout_editor_absoluteX="353dp"
-        tools:layout_editor_absoluteY="31dp" />
-
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="193dp"
-        tools:layout_editor_absoluteY="411dp" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

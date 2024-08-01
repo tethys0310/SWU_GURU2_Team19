@@ -241,13 +241,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageButton
+    <Button
         android:id="@+id/btnRegister_Reg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:background="#00FF0000"/>
-<!--        android:src="@drawable/complete"-->
+        android:background="#00FF0000"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="579dp" />
+    <!--        android:src="@drawable/complete"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent" />-->

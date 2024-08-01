@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    lateinit var btnLogin: ImageButton
+    lateinit var btnLogin: Button
     lateinit var editTextId: EditText
     lateinit var editTextPassword: EditText
     lateinit var btnRegister: Button

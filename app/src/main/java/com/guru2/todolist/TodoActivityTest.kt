@@ -72,9 +72,17 @@ class TodoActivityTest : AppCompatActivity() {
             result.add(TodoExtract(true, arrayCategory[i].id, arrayCategory[i].title, false))
             Log.d("카테고리 저장!", result[i].title) //체크용
             if (arrayCategory[i].todoArray.isNotEmpty()) {
-                for (j in 0 until arrayCategory[i].todoArray.size) //카테고리 안 투두 저장
-                    result.add(TodoExtract(false,"", arrayCategory[i].todoArray[j].title, arrayCategory[i].todoArray[j].check))
+                for (j in 0 until arrayCategory[i].todoArray.size) { //카테고리 안 투두 저장
+                    result.add(
+                        TodoExtract(
+                            false,
+                            "",
+                            arrayCategory[i].todoArray[j].title,
+                            arrayCategory[i].todoArray[j].check
+                        )
+                    )
                     Log.d("카테고리 저장!", "예시 저장완료") //체크용
+                }
             }
         }
 
@@ -127,11 +135,30 @@ class TodoActivityTest : AppCompatActivity() {
         return data
     }
 
+    //과목 아이디 기반으로 투두 뽑아내는 함수
+    private suspend fun getTodoOnDB(client : SupabaseClient, subject_id : String) : List<Todo> {
+        var data: List<Todo> = arrayListOf()
+
+        try {
+            val supabaseResponse = client.postgrest["todos"].select{ 
+                filter {
+                    eq("subject_id", subject_id)
+                }
+            }
+            //배열로 들어오는 Subject들
+            data = supabaseResponse.decodeList<Todo>()
+            Log.d("supabase", data.toString())
+        }catch (e: Exception){
+            Log.e("supabase", "Todo 받아오기 중 에러 발생")
+        }
+        return data
+    }
+
     // 받아온 정보 가공하기
     private fun getOnDB(client : SupabaseClient) : ArrayList<TodoExtract>{
-        var categoryList: ArrayList<Category> = arrayListOf()
-        var result: ArrayList<TodoExtract> = arrayListOf()
+        val categoryList: ArrayList<Category> = arrayListOf()
         var subjectList: List<Subject> = listOf()
+        var todosList: List<Todo> = listOf()
 
         runBlocking<Unit> {
             val subject : Deferred<List<Subject>> = async { getSubjectOnDB(client) }
@@ -141,21 +168,23 @@ class TodoActivityTest : AppCompatActivity() {
         //Subject(id=아이디, title=과목명, dayOfWeek=요일, start=시작, end=끝, credit=학점, professor=교수명, sub_class=위치)
         //Category(id=아이디, title=과목명, todoArray=투두 들어가는 어레이)
         //투두에서 필요한 건 과목명 뿐... subject 관련하여서는 수정 없을 예정
-        for (i in 0 until subjectList.size) {
+        for (i in subjectList.indices) {
             categoryList.add(Category(subjectList[i].id, subjectList[i].title, arrayListOf()))
             Log.d("리스트에서 카테고리 저장!", subjectList[i].title)
+            runBlocking<Unit> {
+                val todo : Deferred<List<Todo>> = async { getTodoOnDB(client, subjectList[i].id) }
+                todosList = todo.await()
+            }
+            if (todosList.isNotEmpty()) {
+                for (j in todosList.indices) {
+                    categoryList[i].todoArray.add(Todos(todosList[j].title, todosList[j].done)) //투두추가
+                }
+            }
         }
 
-        //DB가 비동기라서... 함수 안에 물리고 물리고 해야함...
-
-
-
+        val result: ArrayList<TodoExtract> = makeArrayTodoExtract(categoryList)
 
         return result
-    }
-
-    private fun printView() {
-
     }
 
 
@@ -165,15 +194,25 @@ class TodoActivityTest : AppCompatActivity() {
         setContentView(R.layout.activity_todo_test)
 
         //아이템 선언
-        var listViewTodo : ListView = findViewById(R.id.listView_todo)
+        val listViewTodo : ListView = findViewById(R.id.listView_todo)
         val buttonMain : Button = findViewById(R.id.button_main)
+        var result : ArrayList<TodoExtract> = arrayListOf()
         //슈퍼베이스 클라이언트가 자꾸 꺼졌다 켜졌다 하길래 아예 변수로 남겨뒀어요. 문제가 있다면 알려주시길...
-        var client : SupabaseClient = getClient()
+        val client : SupabaseClient = getClient()
 
 
         //카테고리 어레이리스트를 투두익스트렉 어레이리스트로 변환
         //val result : ArrayList<TodoExtract> = makeArrayTodoExtract(exCategoryList)
-        val result : ArrayList<TodoExtract> = getOnDB(client)
+
+        runBlocking<Unit> {
+            var listCategory = async{ getOnDB(client) }
+            result = listCategory.await()
+            Log.d("리스트 카테고리?", getOnDB(client).size.toString())
+            Log.d("result 잘 나왔니?", result.size.toString())
+        }
+
+        Log.d("여긴 어때?", result.size.toString())
+
 
 
         //어댑터에 투두익스트렉 어레이리스트 삽입 후 화면 출력

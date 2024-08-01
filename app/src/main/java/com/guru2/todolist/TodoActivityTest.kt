@@ -25,13 +25,13 @@ class TodoActivityTest : AppCompatActivity() {
     //데이터베이스에서 가져올 때 이런 형태로 가져와야? 할 듯...
     var exCategoryList = arrayListOf<Category> (
         Category("GURU1", arrayListOf(
-            Todo("마일스톤 플래너 작성", false),
-            Todo("과제1 제출", false))
+            Todos("마일스톤 플래너 작성", false),
+            Todos("과제1 제출", false))
         ),
         Category("GURU2", arrayListOf(
-            Todo("과제1 제출", true),
-            Todo("과제2 제출", true),
-            Todo("해커톤 진행", false))
+            Todos("과제1 제출", true),
+            Todos("과제2 제출", true),
+            Todos("해커톤 진행", false))
         )
     )
 
@@ -66,7 +66,7 @@ class TodoActivityTest : AppCompatActivity() {
                 result.add(Category(arrayTodoExtract[i].title, arrayListOf()))
             }
             else {
-                result[counter].addTodo(Todo(arrayTodoExtract[i].title, arrayTodoExtract[i].check))
+                result[counter].addTodo(Todos(arrayTodoExtract[i].title, arrayTodoExtract[i].check))
             }
         }
         return result

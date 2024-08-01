@@ -30,24 +30,8 @@ import kotlinx.coroutines.runBlocking
 class TodoActivityTest : AppCompatActivity() {
 
     //캘린더에 투두가 어떤 방식으로 들어가게 될지를 모르겠어서... 액티비티로 구현.
-    //리스트뷰로 구현. 카테고리 클래스랑 투두 클래스 둘 다 먹어주는 클래스가 필요할 것 같음. 그걸로 리스트 만들어야겠지...
+    //리스트뷰로 구현. 카테고리 클래스랑 투두 클래스 둘 다 먹어주는 클래스(투두익스트랙) 존재. 그걸로 리스트뷰 만들어진다.
     //아이템 클릭 리스너 통해서 투두 수정, 삭제 기능 구현. 알럿 다이얼로그로 구현.
-
-    //예시로 사용할 데이터들 ...
-    //데이터베이스에서 가져올 때 이런 형태로 가져와야? 할 듯...
-    /*
-    var exCategoryList = arrayListOf<Category> (
-        Category("1", "GURU1", arrayListOf(
-            Todos("마일스톤 플래너 작성", false),
-            Todos("과제1 제출", false))
-        ),
-        Category("2","GURU2", arrayListOf(
-            Todos("과제1 제출", true),
-            Todos("과제2 제출", true),
-            Todos("해커톤 진행", false))
-        )
-    )
-    */
 
     //DB연결
     // 데이터 베이스 client 받아 오기
@@ -60,17 +44,13 @@ class TodoActivityTest : AppCompatActivity() {
         }
     }
 
-
+    //TodoListAdapter에 넣기 위한 어레이리스트 만드는 용도
     fun makeArrayTodoExtract (arrayCategory: ArrayList<Category>) : ArrayList<TodoExtract> {
-
-        //TodoListAdapter에 넣기 위한 어레이리스트 만드는 용도
-
         //리턴용
         val result : ArrayList<TodoExtract> = arrayListOf()
 
         for (i in 0 until arrayCategory.size) { //카테고리 저장
             result.add(TodoExtract(true, arrayCategory[i].id, arrayCategory[i].title, false))
-            Log.d("카테고리 저장!", result[i].title) //체크용
             if (arrayCategory[i].todoArray.isNotEmpty()) {
                 for (j in 0 until arrayCategory[i].todoArray.size) { //카테고리 안 투두 저장
                     result.add(
@@ -81,7 +61,6 @@ class TodoActivityTest : AppCompatActivity() {
                             arrayCategory[i].todoArray[j].check
                         )
                     )
-                    Log.d("카테고리 저장!", "예시 저장완료") //체크용
                 }
             }
         }
@@ -118,8 +97,7 @@ class TodoActivityTest : AppCompatActivity() {
 
     /* ====== DB관련 ====== */
 
-    // DB에서부터 정보 받아오기
-    // 과목
+    // DB에서부터 과목 정보 받아오기
     private suspend fun getSubjectOnDB(client : SupabaseClient) : List<Subject> {
 
         var data: List<Subject> = arrayListOf()
@@ -135,18 +113,17 @@ class TodoActivityTest : AppCompatActivity() {
         return data
     }
 
-    //과목 아이디 기반으로 투두 뽑아내는 함수
+    // DB에서부터 과목 ID 기반으로 하여금 투두 정보 받아오기
     private suspend fun getTodoOnDB(client : SupabaseClient, subject_id : String) : List<Todo> {
         var data: List<Todo> = arrayListOf()
 
         try {
             val supabaseResponse = client.postgrest["todos"].select{ 
                 filter {
-                    eq("subject_id", subject_id)
+                    eq("subject_id", subject_id) //매개변수로 아이디 지정
                 }
             }
-            //배열로 들어오는 Subject들
-            data = supabaseResponse.decodeList<Todo>()
+            data = supabaseResponse.decodeList<Todo>() //아이디와 일치하는 투두만 저장됨
             Log.d("supabase", data.toString())
         }catch (e: Exception){
             Log.e("supabase", "Todo 받아오기 중 에러 발생")
@@ -160,29 +137,30 @@ class TodoActivityTest : AppCompatActivity() {
         var subjectList: List<Subject> = listOf()
         var todosList: List<Todo> = listOf()
 
-        runBlocking<Unit> {
+        runBlocking<Unit> { //과목 불러오기 위해 잠깐 블락
             val subject : Deferred<List<Subject>> = async { getSubjectOnDB(client) }
             subjectList = subject.await()
         }
 
         //Subject(id=아이디, title=과목명, dayOfWeek=요일, start=시작, end=끝, credit=학점, professor=교수명, sub_class=위치)
         //Category(id=아이디, title=과목명, todoArray=투두 들어가는 어레이)
-        //투두에서 필요한 건 과목명 뿐... subject 관련하여서는 수정 없을 예정
+        //투두에서 필요한 건 과목명 뿐... subject 관련하여서는 여기에서는 수정 없을 예정
+
         for (i in subjectList.indices) {
             categoryList.add(Category(subjectList[i].id, subjectList[i].title, arrayListOf()))
-            Log.d("리스트에서 카테고리 저장!", subjectList[i].title)
+            //카테고리 내 투두 배열에 투두 추가 전 투두 불러오는 작업
             runBlocking<Unit> {
-                val todo : Deferred<List<Todo>> = async { getTodoOnDB(client, subjectList[i].id) }
+                val todo : Deferred<List<Todo>> = async { getTodoOnDB(client, subjectList[i].id) } //과목ID 요구
                 todosList = todo.await()
             }
-            if (todosList.isNotEmpty()) {
+            if (todosList.isNotEmpty()) { //검색 결과 존재시
                 for (j in todosList.indices) {
-                    categoryList[i].todoArray.add(Todos(todosList[j].title, todosList[j].done)) //투두추가
+                    categoryList[i].todoArray.add(Todos(todosList[j].title, todosList[j].done)) //카테고리 클래스의 배열 안에 투두 추가
                 }
             }
         }
 
-        val result: ArrayList<TodoExtract> = makeArrayTodoExtract(categoryList)
+        val result: ArrayList<TodoExtract> = makeArrayTodoExtract(categoryList) //카테고리 배열로 투두익스트랙 배열 만들기
 
         return result
     }
@@ -202,19 +180,11 @@ class TodoActivityTest : AppCompatActivity() {
 
 
         //카테고리 어레이리스트를 투두익스트렉 어레이리스트로 변환
-        //val result : ArrayList<TodoExtract> = makeArrayTodoExtract(exCategoryList)
-
-        runBlocking<Unit> {
+        runBlocking<Unit> { //결과 나오기 전까지 기다리기
             var listCategory = async{ getOnDB(client) }
             result = listCategory.await()
-            Log.d("리스트 카테고리?", getOnDB(client).size.toString())
-            Log.d("result 잘 나왔니?", result.size.toString())
         }
-
-        Log.d("여긴 어때?", result.size.toString())
-
-
-
+        
         //어댑터에 투두익스트렉 어레이리스트 삽입 후 화면 출력
         val adapter = TodoListAdapter(this, result)
         listViewTodo.adapter = adapter

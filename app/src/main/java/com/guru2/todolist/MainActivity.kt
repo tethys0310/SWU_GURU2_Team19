@@ -36,6 +36,19 @@ class MainActivity : AppCompatActivity() {
         DB = DBHelper(this)
 
         btnLogin = findViewById(R.id.btnLogin)
+
+        //임시 버튼
+        var btnTodo = findViewById<Button>(R.id.btnTodo)
+        btnTodo.setOnClickListener {
+            val intent = Intent(this@MainActivity, TodoActivityTest::class.java)
+            startActivity(intent)
+        }
+        var btnCalender = findViewById<Button>(R.id.btnCalender)
+        btnCalender.setOnClickListener {
+            val intent = Intent(this@MainActivity, CalenderActivity::class.java)
+            startActivity(intent)
+        }
+
         editTextId = findViewById(R.id.editTextId)
         editTextPassword = findViewById(R.id.editTextPassword)
         btnRegister = findViewById(R.id.btnRegister)

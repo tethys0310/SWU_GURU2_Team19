@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var editTextId: EditText
     lateinit var editTextPassword: EditText
     lateinit var btnRegister: Button
-    var DB:DBHelper?=null
+    var DB: DBHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,24 +26,22 @@ class MainActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.btnRegister)
 
         // 로그인 버튼 클릭
-        btnLogin!!.setOnClickListener {
-            val user = editTextId!!.text.toString()
-            val pass = editTextPassword!!.text.toString()
+        btnLogin.setOnClickListener {
+            val user = editTextId.text.toString()
+            val pass = editTextPassword.text.toString()
 
             // 빈칸 제출시 Toast
-            if (user == "" || pass == "") {
+            if (user.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this@MainActivity, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val checkUserpass = DB!!.checkUserpass(user, pass)
+            } else {
+                val checkUserpass = DB?.checkUserpass(user, pass)
                 // id 와 password 일치시
                 if (checkUserpass == true) {
                     Toast.makeText(this@MainActivity, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this,HomeActivity::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
-                }
-                else {
+                } else {
                     Toast.makeText(this@MainActivity, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show()
                 }
             }

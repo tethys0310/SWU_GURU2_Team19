@@ -30,10 +30,7 @@
             android:inputType="text"
             android:paddingLeft="9dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#8DFFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColorHint="#8DFFFFFF" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -48,17 +45,8 @@
             android:inputType="textPassword"
             android:paddingLeft="8dp"
             android:textColor="#FFFFFF"
-            android:textColorHint="#8DFFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextId" />
+            android:textColorHint="#8DFFFFFF" />
     </LinearLayout>
-
-
-
-
 
     <ImageView
         android:id="@+id/imageView"
@@ -71,15 +59,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnlogin"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center|bottom"
         android:backgroundTint="#00FF0000"
         android:padding="5dp"
         android:text="로그인"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="581dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -88,8 +78,8 @@
         android:backgroundTint="#00FF0000"
         android:padding="5dp"
         android:text="회원가입"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="655dp" />
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

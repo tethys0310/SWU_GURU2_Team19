@@ -56,25 +56,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#FFFFFF"
                     android:ems="10"
                     android:layout_gravity="bottom"/>
-<!--                    android:hint="@string/editId_hint"-->
-<!--                    android:inputType="text"-->
-<!--                    android:textColor="#FFFFFF"-->
-<!--                    android:textColorHint="#8DFFFFFF" />-->
 
-<!--                <Button-->
-<!--                    android:id="@+id/btnCheckId_Reg"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:layout_gravity="right|top"-->
-<!--                    android:backgroundTint="#FFFFFF"-->
-<!--                    android:text="중복확인"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:textColor="#1C26FF"-->
-<!--                    android:padding="1dp"-->
-<!--                    android:textSize="12sp"/>-->
+                <Button
+                    android:id="@+id/btnCheckId_Reg"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right|top"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="중복확인"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:padding="1dp"
+                    android:textSize="12sp"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -105,13 +101,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#FFFFFF"
                     android:ems="10"
-                    android:layout_gravity="bottom"/>
-<!--                    android:hint="@string/editPass_hint"-->
-<!--                    android:inputType="textPassword"-->
-<!--                    android:textColor="#FFFFFF"-->
-<!--                    android:textColorHint="#8DFFFFFF" />-->
+                    android:layout_gravity="bottom"
+                    android:inputType="textPassword"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -142,7 +135,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:backgroundTint="#FFFFFF"
                     android:ems="10"
                     android:layout_gravity="bottom"
                     android:inputType="textPassword"
@@ -178,26 +170,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#FFFFFF"
                     android:ems="10"
                     android:layout_gravity="bottom"/>
-<!--                    android:hint="@string/editNick_hint"-->
-<!--                    android:inputType="text"-->
-<!--                    android:maxLength="20"-->
-<!--                    android:textColor="#FFFFFF"-->
-<!--                    android:textColorHint="#8DFFFFFF" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/btnCheckNick_Reg"-->
-<!--                    android:layout_width="80dp"-->
-<!--                    android:layout_height="30dp"-->
-<!--                    android:layout_gravity="right|top"-->
-<!--                    android:backgroundTint="#FFFFFF"-->
-<!--                    android:text="중복확인"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:textColor="#1C26FF"-->
-<!--                    android:padding="1dp"-->
-<!--                    android:textSize="12sp"/>-->
             </FrameLayout>
 
         </LinearLayout>
@@ -228,14 +203,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
-                    android:backgroundTint="#FFFFFF"
+                    android:textColor="#FFFFFF"
                     android:ems="10"
                     android:layout_gravity="bottom"/>
-<!--                    android:hint="@string/editPhone_hint"-->
-<!--                    android:inputType="number"-->
-<!--                    android:textColor="#FFFFFF"-->
-<!--                    android:textColorHint="#8DFFFFFF" />-->
-
             </FrameLayout>
 
         </LinearLayout>
@@ -246,12 +216,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00FF0000"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="579dp" />
-    <!--        android:src="@drawable/complete"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-
+        android:text="가입하기"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.846" />
 </androidx.constraintlayout.widget.ConstraintLayout>

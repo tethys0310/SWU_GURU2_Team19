@@ -33,8 +33,8 @@ class RegisterActivity : AppCompatActivity() {
         editTextNick = findViewById(R.id.editTextNick_Reg)
         editTextPhone = findViewById(R.id.editTextPhone_Reg)
         btnRegister = findViewById(R.id.btnRegister_Reg)
-//        btnCheckId = findViewById(R.id.btnCheckId_Reg)
-//        btnCheckNick = findViewById(R.id.btnCheckNick_Reg)
+        //btnCheckId = findViewById(R.id.btnCheckId_Reg)
+        //btnCheckNick = findViewById(R.id.btnCheckNick_Reg)
 
         // 아이디 중복확인
         btnCheckId.setOnClickListener {
@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         // 닉네임 중복확인
-        btnCheckNick.setOnClickListener {
+        /*btnCheckNick.setOnClickListener {
             val nick = editTextNick.text.toString()
             val nickPattern = "^[ㄱ-ㅣ가-힣]*$"
 
@@ -92,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this@RegisterActivity, "닉네임 형식이 옳지 않습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
+        }*/
 
         // 완료 버튼 클릭 시
         btnRegister.setOnClickListener {

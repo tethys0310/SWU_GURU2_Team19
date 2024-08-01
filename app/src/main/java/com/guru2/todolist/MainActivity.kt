@@ -10,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 
 class MainActivity : AppCompatActivity() {
-    lateinit var btnLogin: ImageButton
+    //lateinit var btnLogin: ImageButton
+    lateinit var btnLogin: Button
     lateinit var editTextId: EditText
     lateinit var editTextPassword: EditText
     lateinit var btnRegister: Button

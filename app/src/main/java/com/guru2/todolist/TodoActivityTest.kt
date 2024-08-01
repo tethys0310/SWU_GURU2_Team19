@@ -145,7 +145,7 @@ class TodoActivityTest : AppCompatActivity() {
 
             //메인화면 넘어가기 전에 리스트 저장 잊지 말 것. DB 연동 들어가야 함.
             Log.i("log message", exCategoryList[1].todoArray[0].title) //구루2에 추가한 1번째 투두 확인용. 잘 작동함!
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }

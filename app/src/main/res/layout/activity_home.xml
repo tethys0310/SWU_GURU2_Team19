@@ -47,304 +47,298 @@
                     android:textColor="#000000"
                     android:layout_gravity="center"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:clipToPadding="false"/>
+
+                                <TableLayout
+                                    android:id="@+id/timetable_table"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:stretchColumns="1">
+
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="시간"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="월요일"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="화요일"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="수요일"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="목요일"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="금요일"
+                                            android:padding="8dp"
+                                            android:gravity="center"
+                                            android:background="#DDDDDD"/>
 
 
-                <!--                <TableLayout-->
-                <!--                    android:id="@+id/timetable_table"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:stretchColumns="1">-->
+                                    </TableRow>
 
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="시간"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                    <!-- 08:00 -->
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="08:00"
+                                            android:padding="8dp"
+                                            android:gravity="center"/>
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:text="월요일"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                        <EditText
+                                            android:id="@+id/monday_0800"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:text="화요일"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                        <EditText
+                                            android:id="@+id/tuesday_0800"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:text="수요일"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                        <EditText
+                                            android:id="@+id/wednesday_0800"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:text="목요일"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                        <EditText
+                                            android:id="@+id/Thursday_0800"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <TextView-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:text="금요일"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"-->
-                <!--                            android:background="#DDDDDD"/>-->
+                                        <EditText
+                                            android:id="@+id/Friday_0800"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
+                                    </TableRow>
 
+                                    <!-- 09:00 -->
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="09:00"
+                                            android:padding="8dp"
+                                            android:gravity="center"/>
 
-                <!--                    </TableRow>-->
+                                        <EditText
+                                            android:id="@+id/monday_0900"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                    &lt;!&ndash; 08:00 &ndash;&gt;-->
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="08:00"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"/>-->
+                                        <EditText
+                                            android:id="@+id/tuesday_0900"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/monday_0800"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/wednesday_0900"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/tuesday_0800"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Thursday_0900"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/wednesday_0800"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Friday_0900"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
+                                    </TableRow>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Thursday_0800"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                    <!-- 10:00 -->
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="10:00"
+                                            android:padding="8dp"
+                                            android:gravity="center"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Friday_0800"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-                <!--                    </TableRow>-->
+                                        <EditText
+                                            android:id="@+id/monday_1000"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                    &lt;!&ndash; 09:00 &ndash;&gt;-->
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="09:00"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"/>-->
+                                        <EditText
+                                            android:id="@+id/tuesday_1000"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/monday_0900"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/wednesday_1000"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/tuesday_0900"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Thursday_1000"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/wednesday_0900"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Friday_1000"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
+                                    </TableRow>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Thursday_0900"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                    <!-- 11:00 -->
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="11:00"
+                                            android:padding="8dp"
+                                            android:gravity="center"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Friday_0900"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-                <!--                    </TableRow>-->
+                                        <EditText
+                                            android:id="@+id/monday_1100"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                    &lt;!&ndash; 10:00 &ndash;&gt;-->
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="10:00"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"/>-->
+                                        <EditText
+                                            android:id="@+id/tuesday_1100"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/monday_1000"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/wednesday_1100"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/tuesday_1000"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Thursday_1100"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/wednesday_1000"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Friday_1100"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
+                                    </TableRow>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Thursday_1000"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                    <!-- 12:00 -->
+                                    <TableRow>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="12:00"
+                                            android:padding="8dp"
+                                            android:gravity="center"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Friday_1000"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-                <!--                    </TableRow>-->
+                                        <EditText
+                                            android:id="@+id/monday_1200"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                    &lt;!&ndash; 11:00 &ndash;&gt;-->
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="11:00"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"/>-->
+                                        <EditText
+                                            android:id="@+id/tuesday_1200"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/monday_1100"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/wednesday_1200"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/tuesday_1100"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Thursday_1200"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/wednesday_1100"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                        <EditText
+                                            android:id="@+id/Friday_1200"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:padding="8dp"/>
+                                    </TableRow>
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Thursday_1100"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
+                                    <!-- 추가적인 시간대 행 추가 가능 -->
 
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Friday_1100"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-                <!--                    </TableRow>-->
-
-                <!--                    &lt;!&ndash; 12:00 &ndash;&gt;-->
-                <!--                    <TableRow>-->
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:text="12:00"-->
-                <!--                            android:padding="8dp"-->
-                <!--                            android:gravity="center"/>-->
-
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/monday_1200"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/tuesday_1200"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/wednesday_1200"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Thursday_1200"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-
-                <!--                        <EditText-->
-                <!--                            android:id="@+id/Friday_1200"-->
-                <!--                            android:layout_width="0dp"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_weight="1"-->
-                <!--                            android:padding="8dp"/>-->
-                <!--                    </TableRow>-->
-
-                <!--                    &lt;!&ndash; 추가적인 시간대 행 추가 가능 &ndash;&gt;-->
-
-                <!--                </TableLayout>-->
+                                </TableLayout>
 
                 <Button
                     android:id="@+id/save_button"

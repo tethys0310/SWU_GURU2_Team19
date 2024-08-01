@@ -65,15 +65,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:background="#00FF0000"/>
-        <!--            app:srcCompat="@drawable/login" />-->
-
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
@@ -93,6 +84,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#00FF0000"
+        android:padding="10dp"
+        android:text="로그인"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="573dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

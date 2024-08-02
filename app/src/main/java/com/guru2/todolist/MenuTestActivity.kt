@@ -45,6 +45,7 @@ open class MenuTestActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         bottomNavigationView.selectedItemId = selectedItemId
     }
 }

@@ -5,16 +5,16 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_todo"
-        android:title="Todo" />
+        android:title="" />
 
     <item android:id="@+id/nav_home"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="" />
 
     <item android:id="@+id/nav_calender"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@drawable/ic_calender"
-        android:title="Calender" />
+        android:title="" />
 </menu>

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TodoList"
         tools:targetApi="35">
         <activity
+            android:name=".MenuTestActivity"
+            android:exported="false" />
+        <activity
             android:name=".TodoActivityTest"
             android:exported="false" />
         <activity

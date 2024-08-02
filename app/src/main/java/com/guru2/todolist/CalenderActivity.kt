@@ -18,7 +18,7 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 
-class CalenderActivity : AppCompatActivity() {
+class CalenderActivity : MenuTestActivity() {
     var userID: String = "userID"
     lateinit var fname: String
     lateinit var str: String
@@ -34,6 +34,7 @@ class CalenderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
+        setupBottomNavigationBar(R.id.nav_todo)
 
         // UI값 생성
         calendarView = findViewById(R.id.calendarView)

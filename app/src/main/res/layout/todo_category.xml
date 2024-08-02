@@ -36,5 +36,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="0"
             android:text="+" />
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

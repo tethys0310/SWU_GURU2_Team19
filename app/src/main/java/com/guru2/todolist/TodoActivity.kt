@@ -162,6 +162,7 @@ class TodoActivity : MenuTestActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_test)
         setupBottomNavigationBar(R.id.nav_todo)
+
         //아이템 선언
         val listViewTodo : ListView = findViewById(R.id.listView_todo)
         val buttonMain : Button = findViewById(R.id.button_main)

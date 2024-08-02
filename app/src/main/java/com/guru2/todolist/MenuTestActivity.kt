@@ -19,23 +19,29 @@ open class MenuTestActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_todo -> {
-                    val intent = Intent(this, TodoActivity::class.java)
-                    startActivity(intent)
+                    if (selectedItemId != R.id.nav_todo) {
+                        val intent = Intent(this, TodoActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    }
                     true
                 }
-
                 R.id.nav_home -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
+                    if (selectedItemId != R.id.nav_home) {
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    }
                     true
                 }
-
                 R.id.nav_calender -> {
-                    val intent = Intent(this, CalenderActivity::class.java)
-                    startActivity(intent)
+                    if (selectedItemId != R.id.nav_calender) {
+                        val intent = Intent(this, CalenderActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    }
                     true
                 }
-
                 else -> false
             }
         }

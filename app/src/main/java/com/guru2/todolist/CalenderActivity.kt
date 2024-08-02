@@ -34,7 +34,7 @@ class CalenderActivity : MenuTestActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calender)
-        setupBottomNavigationBar(R.id.nav_todo)
+        setupBottomNavigationBar(R.id.nav_calender)
 
         // UI값 생성
         calendarView = findViewById(R.id.calendarView)

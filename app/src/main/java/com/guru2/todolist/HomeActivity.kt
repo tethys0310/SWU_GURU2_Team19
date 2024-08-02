@@ -11,7 +11,7 @@ class HomeActivity : MenuTestActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
-        setupBottomNavigationBar(R.id.nav_todo)
+        setupBottomNavigationBar(R.id.nav_home)
 //        val buttonTodo: Button = findViewById(R.id.button_todo)
 //
 //        buttonTodo.setOnClickListener {

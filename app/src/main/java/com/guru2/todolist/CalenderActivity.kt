@@ -165,7 +165,7 @@ class CalenderActivity : MenuTestActivity() {
             val client = getClient()
             val supabaseResponse = client.postgrest["todos"].select()
             val data: List<Todo> = supabaseResponse.decodeList<Todo>()
-            Log.d("supabase", data.toString())
+            Log.d("supabase 캘린더", data.toString())
             todoMap.putAll(data.groupBy { it.day })
         } catch (e: Exception) {
             Log.e("supabase", "Todo 받아오기 중 에러 발생", e)

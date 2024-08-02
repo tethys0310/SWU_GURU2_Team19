@@ -11,16 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
-import io.ktor.util.Identity.decode
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.toDatePeriod
 import kotlinx.serialization.Serializable
-import java.sql.Time
-import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var btnLogin: ImageButton
@@ -40,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         //임시 버튼
         var btnTodo = findViewById<Button>(R.id.btnTodo)
         btnTodo.setOnClickListener {
-            val intent = Intent(this@MainActivity, TodoActivityTest::class.java)
+            val intent = Intent(this@MainActivity, TodoActivity::class.java)
             startActivity(intent)
         }
         var btnCalender = findViewById<Button>(R.id.btnCalender)

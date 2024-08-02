@@ -5,29 +5,21 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.common.internal.TelemetryLogging.getClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
-import kotlinx.coroutines.launch
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 
-class TodoActivityTest : AppCompatActivity() {
+class TodoActivity : AppCompatActivity() {
 
     //캘린더에 투두가 어떤 방식으로 들어가게 될지를 모르겠어서... 액티비티로 구현.
     //리스트뷰로 구현. 카테고리 클래스랑 투두 클래스 둘 다 먹어주는 클래스(투두익스트랙) 존재. 그걸로 리스트뷰 만들어진다.
@@ -186,7 +178,7 @@ class TodoActivityTest : AppCompatActivity() {
         }
         
         //어댑터에 투두익스트렉 어레이리스트 삽입 후 화면 출력
-        val adapter = TodoListAdapter(this, result)
+        val adapter = TodoListAdapter(this, client, result)
         listViewTodo.adapter = adapter
 
         //카테고리 클릭 했을 때 작동하는 아이템 클릭 리스너. 수정 및 삭제 기능은 이 곳에, 추가 기능은 어댑터에.
@@ -211,23 +203,27 @@ class TodoActivityTest : AppCompatActivity() {
                     DialogInterface.OnClickListener { dialog, which ->
                         Log.i("log message", item.title+" 수정 취소")
                     })
-                .setNeutralButton("삭제",
-                    DialogInterface.OnClickListener{ dialog, which -> //삭제 버튼 누를 때 유저에게 진짜 삭제할거냐고 되물어야함
-                        val really = AlertDialog.Builder(this)
+                .setNeutralButton("삭제"
+                ) { dialog, which -> //삭제 버튼 누를 때 유저에게 진짜 삭제할거냐고 되물어야함
+                    val really = AlertDialog.Builder(this)
                         .setTitle("정말로 " + item.title + "을(를) 삭제하나요?")
-                        .setPositiveButton("예",
-                            DialogInterface.OnClickListener { dialog, which ->
-                                result.removeAt(position)
-                                adapter.notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
-                                Toast.makeText(this, item.title+" 일정을 정상적으로 삭제했습니다.", Toast.LENGTH_SHORT).show()
-                                Log.i("log message", item.title+" 삭제 완료")
-                            })
-                        .setNegativeButton("아니오",
-                            DialogInterface.OnClickListener { dialog, which ->
-                                Log.i("log message", item.title+" 삭제 취소")
-                            })
+                        .setPositiveButton("예"
+                        ) { dialog, which ->
+                            result.removeAt(position)
+                            adapter.notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
+                            Toast.makeText(
+                                this,
+                                item.title + " 일정을 정상적으로 삭제했습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.i("log message", item.title + " 삭제 완료")
+                        }
+                        .setNegativeButton("아니오"
+                        ) { dialog, which ->
+                            Log.i("log message", item.title + " 삭제 취소")
+                        }
                     really.show()
-                })
+                }
             builder.show()
         }
 

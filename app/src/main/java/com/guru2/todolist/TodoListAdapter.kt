@@ -14,13 +14,19 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
-class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): BaseAdapter()
-{
+class TodoListAdapter (val context: Context, val client: SupabaseClient, val list:ArrayList<TodoExtract>): BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val item= list[position]
+        val item = list[position]
 
         //투두리스트 출력하는 view2
         if (!item.isCategory) {
@@ -60,26 +66,31 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
     override fun getItem(position: Int): TodoExtract {
         return list[position]
     }
+
     override fun getCount(): Int {
         return list.size
     }
+
     override fun getItemId(position: Int): Long = position.toLong()
 
     //과목 +버튼 누르면 투두 추가할 수 있는 기능.
-    fun addTodo (position:Int) {
+    fun addTodo(position: Int) {
         val et = EditText(context) //et.text
         et.setHint("추가내용을 여기에 입력")
-        
+
         //다이얼로그
         val builder = AlertDialog.Builder(context)
-            .setTitle(list[position].title+" 과목에 일정 추가")
+            .setTitle(list[position].title + " 과목에 일정 추가")
             .setMessage("투두리스트에 추가할 내용을 입력하세요.")
             .setView(et)
             .setPositiveButton("확인",
-                DialogInterface.OnClickListener{ dialog, which ->
+                DialogInterface.OnClickListener { dialog, which ->
                     //포지션 +1에 리스트 추가
-                    list.add(position+1, TodoExtract(false, "", et.text.toString(), false))
+                    list.add(position + 1, TodoExtract(false, list[position].id, et.text.toString(), false))
                     notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
+                    runBlocking<Unit> { //투두 저장 위해 잠깐 블락
+                        addTodoDataInDB(position, client, list[position+1])
+                    }
                     Toast.makeText(context, "추가 완료 : " + et.text, Toast.LENGTH_SHORT).show()
                 })
             .setNegativeButton("취소",
@@ -89,18 +100,27 @@ class TodoListAdapter (val context: Context, val list:ArrayList<TodoExtract>): B
         builder.show()
     }
 
-    fun modifyCheckbox (position: Int) {
+    fun modifyCheckbox(position: Int) {
 
-        var item : TodoExtract = getItem(position)
+        var item: TodoExtract = getItem(position)
         list.removeAt(position)
 
-        if (item.check){
+        if (item.check) {
             list.add(position, TodoExtract(false, "", item.title, false))
-            Log.i("log message2", item.title+"이 체크박스 해제")
-        }
-        else
+            Log.i("log message2", item.title + "이 체크박스 해제")
+        } else
             list.add(position, TodoExtract(false, "", item.title, true))
     }
 
+    // todos 정보 생성하기
+    private suspend fun addTodoDataInDB(position: Int, client: SupabaseClient, todos: TodoExtract) {
+        val todo = Todo("00001", "sample1", todos.id, todos.title, 2024, 8, 2, todos.check)
 
+        try {
+            val supabaseResponse = client.postgrest["todos"].insert(todo)
+            Log.e("supabase", "Todo 생성 성공: $todo")
+        } catch (e: Exception) {
+            Log.e("supabase", "Todo 생성 중 에러 발생")
+        }
+    }
 }

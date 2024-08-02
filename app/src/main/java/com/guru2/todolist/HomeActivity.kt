@@ -4,9 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class HomeActivity : MenuTestActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +12,7 @@ class HomeActivity : MenuTestActivity() {
         val buttonTodo: Button = findViewById(R.id.button_todo)
 
         buttonTodo.setOnClickListener {
-            val intent = Intent(this, TodoActivityTest::class.java)
+            val intent = Intent(this, TodoActivity::class.java)
             startActivity(intent)
 
             super.onCreate(savedInstanceState)

@@ -25,7 +25,7 @@ open class MenuTestActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_todo -> {
-                    val intent = Intent(this, TodoActivityTest::class.java)
+                    val intent = Intent(this, TodoActivity::class.java)
                     startActivity(intent)
                     true
                 }

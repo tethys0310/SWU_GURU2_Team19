@@ -1,20 +1,18 @@
 package com.guru2.todolist
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import io.github.jan.supabase.postgrest.Postgrest
-import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -49,7 +47,7 @@ class TodoActivity : MenuTestActivity() {
                     result.add(
                         TodoExtract(
                             false,
-                            "",
+                            arrayCategory[i].id,
                             arrayCategory[i].todoArray[j].title,
                             arrayCategory[i].todoArray[j].check
                         )
@@ -83,32 +81,12 @@ class TodoActivity : MenuTestActivity() {
     fun modifyTodoExtract (array: ArrayList<TodoExtract>, position:Int, msg:String, check:Boolean) {
         //이름 수정용.
         array.removeAt(position)
-        array.add(position, TodoExtract(false,"", msg, check))
+        array.add(position, TodoExtract(false, array[position].id, msg, check))
 
         return
     }
 
-    private suspend fun deleteTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
-        try {
-            // 데이터 삭제 요청
-            client.postgrest["todos"].delete {
-                filter {
-                    eq("subject_id", todos.id)
-                    eq("title", todos.title)
-                }
-            }
-
-            // 수정 성공 시 로그 기록
-            Log.d("supabase", "Todo 삭제 성공: " + todos.toString())
-        } catch (e: Exception) {
-            // 수정 중 발생한 오류를 처리
-            Log.e("supabase", "Todo 삭제 중 오류 발생")
-        }
-    }
-
-
-
-    /* ====== DB관련 ====== */
+    /* ======================================== DB 관련 ===========================================*/
 
     // DB에서부터 과목 정보 받아오기
     private suspend fun getSubjectOnDB(client : SupabaseClient) : List<Subject> {
@@ -150,10 +128,12 @@ class TodoActivity : MenuTestActivity() {
         var subjectList: List<Subject> = listOf()
         var todosList: List<Todo> = listOf()
 
+
         runBlocking<Unit> { //과목 불러오기 위해 잠깐 블락
             val subject : Deferred<List<Subject>> = async { getSubjectOnDB(client) }
             subjectList = subject.await()
         }
+
 
         //Subject(id=아이디, title=과목명, dayOfWeek=요일, start=시작, end=끝, credit=학점, professor=교수명, sub_class=위치)
         //Category(id=아이디, title=과목명, todoArray=투두 들어가는 어레이)
@@ -178,6 +158,48 @@ class TodoActivity : MenuTestActivity() {
         return result
     }
 
+    private suspend fun deleteTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
+        try {
+            // 데이터 삭제 요청
+            client.postgrest["todos"].delete {
+                filter {
+                    eq("subject_id", todos.id)
+                    eq("title", todos.title)
+                }
+            }
+
+            // 수정 성공 시 로그 기록
+            Log.d("supabase", "Todo 삭제 성공: " + todos.toString())
+        } catch (e: Exception) {
+            // 수정 중 발생한 오류를 처리
+            Log.e("supabase", "Todo 삭제 중 오류 발생")
+        }
+    }
+
+    private suspend fun editTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
+        try {
+            // 데이터 수정 요청
+            client.postgrest["todos"].update(
+                {
+                    set("title", todos.title)
+                    set("done", todos.check)
+                }
+            ){
+                filter {
+                    eq("subject_id", todos.id)
+                    eq("title", todos.title)
+                }
+            }
+
+            // 수정 성공 시 로그 기록
+            Log.d("supabase", "Todo 수정 성공: " + todos.toString())
+        } catch (e: Exception) {
+            // 수정 중 발생한 오류를 처리
+            Log.e("supabase", "Todo 수정 중 오류 발생")
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -187,11 +209,9 @@ class TodoActivity : MenuTestActivity() {
 
         //아이템 선언
         val listViewTodo : ListView = findViewById(R.id.listView_todo)
-        //val buttonMain : Button = findViewById(R.id.button_main)
         var result : ArrayList<TodoExtract> = arrayListOf()
         //슈퍼베이스 클라이언트가 자꾸 꺼졌다 켜졌다 하길래 아예 변수로 남겨뒀어요. 문제가 있다면 알려주시길...
         val client : SupabaseClient = getClient()
-
 
         //카테고리 어레이리스트를 투두익스트렉 어레이리스트로 변환
         runBlocking<Unit> { //결과 나오기 전까지 기다리기
@@ -217,9 +237,12 @@ class TodoActivity : MenuTestActivity() {
                 .setView(et)
                 .setPositiveButton("확인",
                     DialogInterface.OnClickListener{ dialog, which ->
-                        modifyTodoExtract (result, position, et.text.toString(), item.check) //수정 해주는 함수
+                        runBlocking<Unit> { //결과 나오기 전까지 기다리기
+                            editTodoDataInDB(client, result[position]) //수정 DB
+                        }
+                        modifyTodoExtract (result, position, et.text.toString(), item.check) //수정 리스트뷰
                         adapter.notifyDataSetChanged()
-                        Log.i("log message", et.text.toString()+" 수정 완료")
+                        Log.i("log message", result[position].toString()+" 수정 완료")
                     })
                 .setNegativeButton("취소",
                     DialogInterface.OnClickListener { dialog, which ->
@@ -232,9 +255,9 @@ class TodoActivity : MenuTestActivity() {
                         .setPositiveButton("예"
                         ) { dialog, which ->
                             runBlocking<Unit> { //결과 나오기 전까지 기다리기
-                                deleteTodoDataInDB(client, result[position]) //삭제
+                                deleteTodoDataInDB(client, result[position]) //DB 삭제
                             }
-                            result.removeAt(position)
+                            result.removeAt(position) //리스트뷰에서 삭제
                             adapter.notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
                             Toast.makeText(
                                 this,
@@ -251,17 +274,6 @@ class TodoActivity : MenuTestActivity() {
                 }
             builder.show()
         }
-
-        //메인화면 가는 버튼
-        /*buttonMain.setOnClickListener {
-            //리스트뷰 분해
-            //exCategoryList = breakArrayTodoExtract(result)
-
-            //메인화면 넘어가기 전에 리스트 저장 잊지 말 것. DB 연동 들어가야 함.
-            //Log.i("log message", exCategoryList[1].todoArray[0].title) //구루2에 추가한 1번째 투두 확인용. 잘 작동함!
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
 }

@@ -88,6 +88,26 @@ class TodoActivity : MenuTestActivity() {
         return
     }
 
+    private suspend fun deleteTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
+        try {
+            // 데이터 삭제 요청
+            client.postgrest["todos"].delete {
+                filter {
+                    eq("subject_id", todos.id)
+                    eq("title", todos.title)
+                }
+            }
+
+            // 수정 성공 시 로그 기록
+            Log.d("supabase", "Todo 삭제 성공: " + todos.toString())
+        } catch (e: Exception) {
+            // 수정 중 발생한 오류를 처리
+            Log.e("supabase", "Todo 삭제 중 오류 발생")
+        }
+    }
+
+
+
     /* ====== DB관련 ====== */
 
     // DB에서부터 과목 정보 받아오기
@@ -167,7 +187,7 @@ class TodoActivity : MenuTestActivity() {
 
         //아이템 선언
         val listViewTodo : ListView = findViewById(R.id.listView_todo)
-        val buttonMain : Button = findViewById(R.id.button_main)
+        //val buttonMain : Button = findViewById(R.id.button_main)
         var result : ArrayList<TodoExtract> = arrayListOf()
         //슈퍼베이스 클라이언트가 자꾸 꺼졌다 켜졌다 하길래 아예 변수로 남겨뒀어요. 문제가 있다면 알려주시길...
         val client : SupabaseClient = getClient()
@@ -211,6 +231,9 @@ class TodoActivity : MenuTestActivity() {
                         .setTitle("정말로 " + item.title + "을(를) 삭제하나요?")
                         .setPositiveButton("예"
                         ) { dialog, which ->
+                            runBlocking<Unit> { //결과 나오기 전까지 기다리기
+                                deleteTodoDataInDB(client, result[position]) //삭제
+                            }
                             result.removeAt(position)
                             adapter.notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
                             Toast.makeText(
@@ -230,7 +253,7 @@ class TodoActivity : MenuTestActivity() {
         }
 
         //메인화면 가는 버튼
-        buttonMain.setOnClickListener {
+        /*buttonMain.setOnClickListener {
             //리스트뷰 분해
             //exCategoryList = breakArrayTodoExtract(result)
 
@@ -238,7 +261,7 @@ class TodoActivity : MenuTestActivity() {
             //Log.i("log message", exCategoryList[1].todoArray[0].title) //구루2에 추가한 1번째 투두 확인용. 잘 작동함!
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 
 }

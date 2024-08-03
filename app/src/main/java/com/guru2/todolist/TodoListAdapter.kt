@@ -21,9 +21,16 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.time.LocalDate
+import java.security.SecureRandom
 
 
 class TodoListAdapter (val context: Context, val client: SupabaseClient, val list:ArrayList<TodoExtract>): BaseAdapter() {
+
+    val localDate : LocalDate = LocalDate.now()
+    val randomIDMaker : SecureRandom = SecureRandom()
+
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val item = list[position]
@@ -87,6 +94,7 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
                 DialogInterface.OnClickListener { dialog, which ->
                     //포지션 +1에 리스트 추가
                     list.add(position + 1, TodoExtract(false, list[position].id, et.text.toString(), false))
+                    Log.i("log message2", list[position].id)
                     notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
                     runBlocking<Unit> { //투두 저장 위해 잠깐 블락
                         addTodoDataInDB(position, client, list[position+1])
@@ -114,7 +122,8 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
 
     // todos 정보 생성하기
     private suspend fun addTodoDataInDB(position: Int, client: SupabaseClient, todos: TodoExtract) {
-        val todo = Todo("00001", "sample1", todos.id, todos.title, 2024, 8, 2, todos.check)
+        Log.e("supabase", "Todo 불러오기 : $todos")
+        val todo = Todo(randomIDMaker.nextInt(9999999).toString(), "sample1", todos.id, todos.title, localDate.year, localDate.monthValue, localDate.dayOfMonth, todos.check)
 
         try {
             val supabaseResponse = client.postgrest["todos"].insert(todo)

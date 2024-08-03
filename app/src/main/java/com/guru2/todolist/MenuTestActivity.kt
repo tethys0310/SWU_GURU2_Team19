@@ -21,7 +21,7 @@ open class MenuTestActivity : AppCompatActivity() {
                 R.id.nav_todo -> {
                     if (selectedItemId != R.id.nav_todo) {
                         val intent = Intent(this, TodoActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         startActivity(intent)
                     }
                     true
@@ -29,7 +29,7 @@ open class MenuTestActivity : AppCompatActivity() {
                 R.id.nav_home -> {
                     if (selectedItemId != R.id.nav_home) {
                         val intent = Intent(this, HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         startActivity(intent)
                     }
                     true
@@ -37,7 +37,7 @@ open class MenuTestActivity : AppCompatActivity() {
                 R.id.nav_calender -> {
                     if (selectedItemId != R.id.nav_calender) {
                         val intent = Intent(this, CalenderActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         startActivity(intent)
                     }
                     true
@@ -45,6 +45,7 @@ open class MenuTestActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         bottomNavigationView.selectedItemId = selectedItemId
     }
 }

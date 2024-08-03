@@ -21,9 +21,16 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.time.LocalDate
+import java.security.SecureRandom
 
 
 class TodoListAdapter (val context: Context, val client: SupabaseClient, val list:ArrayList<TodoExtract>): BaseAdapter() {
+
+    val localDate : LocalDate = LocalDate.now()
+    val randomIDMaker : SecureRandom = SecureRandom()
+
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val item = list[position]
@@ -36,7 +43,7 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
             val titleCategory = view2.findViewById<TextView>(R.id.textView_title)
             val checkbox = view2.findViewById<CheckBox>(R.id.checkBox_check)
             checkbox.setOnClickListener {
-                Log.i("log message", position.toString()) //인덱스 확인용
+                Log.i("TodoAdapter", position.toString()) //인덱스 확인용
                 //체크박스 변동마다 함수 호출
                 modifyCheckbox(position)
             }
@@ -55,7 +62,7 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
 
         val buttonPlus = view1.findViewById<Button>(R.id.button_plus)
         buttonPlus.setOnClickListener {
-            Log.i("log message", position.toString()) //인덱스 확인용
+            Log.i("TodoAdapter", position.toString()) //인덱스 확인용
             //메시지 띄워서 투두 제목 입력.
             addTodo(position) //할 일 추가 해주는 함수
         }
@@ -73,7 +80,8 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    //과목 +버튼 누르면 투두 추가할 수 있는 기능.
+
+    //리스트뷰에서 과목 +버튼 누르면 투두 추가할 수 있는 기능.
     fun addTodo(position: Int) {
         val et = EditText(context) //et.text
         et.setHint("추가내용을 여기에 입력")
@@ -87,40 +95,68 @@ class TodoListAdapter (val context: Context, val client: SupabaseClient, val lis
                 DialogInterface.OnClickListener { dialog, which ->
                     //포지션 +1에 리스트 추가
                     list.add(position + 1, TodoExtract(false, list[position].id, et.text.toString(), false))
+                    Log.i("TodoAdapter", list[position].id)
                     notifyDataSetChanged() //어댑터에게 갱신되었다고 알리기
                     runBlocking<Unit> { //투두 저장 위해 잠깐 블락
-                        addTodoDataInDB(position, client, list[position+1])
+                        addTodoDataInDB(client, list[position+1])
                     }
                     Toast.makeText(context, "추가 완료 : " + et.text, Toast.LENGTH_SHORT).show()
                 })
             .setNegativeButton("취소",
                 DialogInterface.OnClickListener { dialog, which ->
-                    Log.i("log message2", "추가 취소")
+                    Log.i("TodoAdapter", "추가 취소")
                 })
         builder.show()
     }
 
+    //DB에서 todos 정보 생성
+    private suspend fun addTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
+        Log.e("supabase", "Todo 불러오기 : $todos")
+        val todo = Todo(randomIDMaker.nextInt(9999999).toString(), "sample1", todos.id, todos.title, localDate.year, localDate.monthValue, localDate.dayOfMonth, todos.check)
+
+        try {
+            val supabaseResponse = client.postgrest["todos"].insert(todo)
+            Log.i("supabase", "Todo 생성 성공: $todo")
+        } catch (e: Exception) {
+            Log.i("supabase", "Todo 생성 중 에러 발생")
+        }
+    }
+
+
+    //리스트뷰에서 체크박스 값 변동
     fun modifyCheckbox(position: Int) {
 
         var item: TodoExtract = getItem(position)
         list.removeAt(position)
 
-        if (item.check) {
-            list.add(position, TodoExtract(false, "", item.title, false))
-            Log.i("log message2", item.title + "이 체크박스 해제")
-        } else
-            list.add(position, TodoExtract(false, "", item.title, true))
+        if (item.check)
+            list.add(position, TodoExtract(false, item.id, item.title, false))
+        else
+            list.add(position, TodoExtract(false, item.id, item.title, true))
+        runBlocking<Unit> {
+            modifyCheckboxInDB(client, list[position])
+        }
+        Log.i("TodoAdapter", "체크박스 값 변동! : " + list[position].toString())
     }
 
-    // todos 정보 생성하기
-    private suspend fun addTodoDataInDB(position: Int, client: SupabaseClient, todos: TodoExtract) {
-        val todo = Todo("00001", "sample1", todos.id, todos.title, 2024, 8, 2, todos.check)
 
+    //DB에서 체크박스 값 변동
+    private suspend fun modifyCheckboxInDB(client: SupabaseClient, todos: TodoExtract) {
+        Log.e("supabase", "Todo 불러오기 : $todos")
         try {
-            val supabaseResponse = client.postgrest["todos"].insert(todo)
-            Log.e("supabase", "Todo 생성 성공: $todo")
+            client.postgrest["todos"].update(
+                {
+                    set("done", todos.check)
+                }
+            ){
+                filter {
+                    eq("subject_id", todos.id)
+                    eq("title", todos.title)
+                }
+            }
+            Log.i("supabase", "Todo 체크박스 수정 성공: $todos")
         } catch (e: Exception) {
-            Log.e("supabase", "Todo 생성 중 에러 발생")
+            Log.i("supabase", "Todo 체크박스 수정 중 에러 발생")
         }
     }
 }

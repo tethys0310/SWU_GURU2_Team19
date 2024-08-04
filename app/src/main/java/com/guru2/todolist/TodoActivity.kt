@@ -80,8 +80,7 @@ class TodoActivity : MenuTestActivity() {
 
     fun modifyTodoExtract (array: ArrayList<TodoExtract>, position:Int, msg:String, check:Boolean) {
         //이름 수정용.
-        array.removeAt(position)
-        array.add(position, TodoExtract(false, array[position].id, msg, check))
+        array[position].title = msg
 
         return
     }
@@ -176,13 +175,12 @@ class TodoActivity : MenuTestActivity() {
         }
     }
 
-    private suspend fun editTodoDataInDB(client: SupabaseClient, todos: TodoExtract) {
+    private suspend fun editTodoDataInDB(client: SupabaseClient, todos: TodoExtract, newTitle: String) {
         try {
             // 데이터 수정 요청
             client.postgrest["todos"].update(
                 {
-                    set("title", todos.title)
-                    set("done", todos.check)
+                    set("title", newTitle)
                 }
             ){
                 filter {
@@ -238,7 +236,7 @@ class TodoActivity : MenuTestActivity() {
                 .setPositiveButton("확인",
                     DialogInterface.OnClickListener{ dialog, which ->
                         runBlocking<Unit> { //결과 나오기 전까지 기다리기
-                            editTodoDataInDB(client, result[position]) //수정 DB
+                            editTodoDataInDB(client, result[position], et.text.toString()) //수정 DB
                         }
                         modifyTodoExtract (result, position, et.text.toString(), item.check) //수정 리스트뷰
                         adapter.notifyDataSetChanged()
